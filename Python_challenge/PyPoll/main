@@ -1,0 +1,84 @@
+```python
+
+import os 
+import csv
+```
+
+
+```python
+#import csv
+pol_data_01=os.path.join("election_data_1.csv")
+
+```
+
+
+```python
+#variables, change for other data set
+votes_total=0
+vestal_total=0
+torres_total=0
+seth_total=0
+cordin_total=0
+
+```
+
+
+```python
+#open csv, count votes
+with open(pol_data_01) as csvfile:
+    csvreader= csv.reader(csvfile)            
+    for row in csvreader:
+        votes_total = votes_total + 1
+    #candidates.append(row[2])           
+        
+        if row[2] == "Vestal":
+            vestal_total=vestal_total+1
+        elif row[2] == "Torres":  
+            torres_total=torres_total+1
+        elif row[2] == "Seth":  
+            seth_total=seth_total+1
+        elif row[2] == "Cordin":  
+            cordin_total=cordin_total+1
+            
+            
+```
+
+
+```python
+#winning candidate
+candidates_dict={"Vestal":vestal_total,"Torres":torres_total, "Seth":seth_total,"Cordin":cordin_total}
+winner=max(candidates_dict, key=candidates_dict.get)
+
+```
+
+
+```python
+#format counts
+vestal='{:.2%}'.format(vestal_total/votes_total)
+torres='{:.2%}'.format(torres_total/votes_total)
+seth='{:.2%}'.format(seth_total/votes_total)
+cordin='{:.2%}'.format(cordin_total/votes_total)
+
+
+```
+
+
+```python
+#print in a text file
+with open("PyPoll.txt", "w") as text_file:
+    print("```", file=text_file)
+    print("Election Results", file=text_file)
+    print("-------------------------", file=text_file)
+    print ("Total Votes:" + str(votes_total), file=text_file)
+    print("-------------------------", file=text_file)
+    print("Vestal:"+ vestal +"("+str(vestal_total)+")", file=text_file)
+    print("Torres:"+ torres +"("+str(torres_total)+")", file=text_file)
+    print("Seth:"+ seth +"("+str(seth_total)+")", file=text_file)
+    print("Cordin:"+ cordin +"("+str(cordin_total)+")", file=text_file)
+    print("-------------------------", file=text_file)
+    print("Winner:" + str(winner), file=text_file)
+    print("-------------------------", file=text_file)
+    print("```", file=text_file)
+
+
+```
